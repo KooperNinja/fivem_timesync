@@ -10,7 +10,7 @@ If you want to use TimePan you have to set the permissions manually with aces [S
 Starting a Timepan with the given parameters
 
 ### /stopTimePan 
-Stops the TimePan (Also Keybindable, Default is 'N')
+Stops the TimePan
 
 ### /setRealTime
 **ONLY USE WITHOUT AN ACTIVE TIMEPAN**
