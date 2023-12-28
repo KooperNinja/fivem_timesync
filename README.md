@@ -1,4 +1,4 @@
-# fivem_timesync
+# kooper_timesync
 standalone timesync
 
 ## Permissions
