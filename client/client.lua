@@ -37,21 +37,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterCommand('setRealTime', function (source, args)
-    print("Set real")
-    TriggerServerEvent('timesync:requestSync')
-end, true)
-
-RegisterCommand('startTimePan', function (source, args)
-    TriggerServerEvent('timesync:setTimePan', true, args)
-end, true)
-
-RegisterCommand('stopTimePan', function (source, args)
-    TriggerServerEvent('timesync:setTimePan', false)
-end, true)
-
-RegisterKeyMapping('stopTimePan', 'Stop Time Pan', 'keyboard', 'N')
-
 --[[
 RegisterCommand('getNetworkTime', function()
     local gms = GetMillisecondsPerGameMinute()

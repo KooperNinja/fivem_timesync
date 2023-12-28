@@ -38,6 +38,18 @@ AddEventHandler('timesync:setTimePan', function(active, args)
 end)
 
 
+RegisterCommand('setRealTime', function (source, args)
+    print("Set real")
+    TriggerEvent('timesync:requestSync')
+end, true)
+
+RegisterCommand('startTimePan', function (source, args)
+    TriggerEvent('timesync:setTimePan', true, args)
+end, true)
+
+RegisterCommand('stopTimePan', function (source, args)
+    TriggerEvent('timesync:setTimePan', false)
+end, true)
 
 local function getTimeFromDate(hours, minutes)
     return tonumber(os.time({year=1970, month=1, day=1, hour=hours, min=minutes}))
