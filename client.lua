@@ -27,8 +27,6 @@ AddEventHandler('timesync:updateTime', function(h, m, setRealTime, msecPerGM)
     SetMillisecondsPerGameMinute((tonumber(msecPerGM)))
 end)
 
-
-
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
@@ -39,20 +37,18 @@ Citizen.CreateThread(function()
     end
 end)
 
-
-
 RegisterCommand('setRealTime', function (source, args)
     print("Set real")
     TriggerServerEvent('timesync:requestSync')
-end, false)
+end, true)
 
 RegisterCommand('startTimePan', function (source, args)
     TriggerServerEvent('timesync:setTimePan', true, args)
-end, false)
+end, true)
 
 RegisterCommand('stopTimePan', function (source, args)
     TriggerServerEvent('timesync:setTimePan', false)
-end, false)
+end, true)
 
 RegisterKeyMapping('stopTimePan', 'Stop Time Pan', 'keyboard', 'N')
 
