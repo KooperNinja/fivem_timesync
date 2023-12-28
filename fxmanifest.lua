@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 games {'gta5'}
 
-author 'Kooper_Ninja <in behalf of ClusterV>'
+author 'Kooper <Kooper Developments>'
 description 'A timesync Module wich syncs the time for every client to the server given time'
 version '1.2.0'
 

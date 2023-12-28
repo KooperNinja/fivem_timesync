@@ -6,20 +6,55 @@ end)
 
 local hours
 local min
+
+local realTime = true
+
 RegisterNetEvent('timesync:updateTime')
-AddEventHandler('timesync:updateTime', function(h, m)
-    SetMillisecondsPerGameMinute(60000)
-    hours = h
-    min = m
+AddEventHandler('timesync:updateTime', function(h, m, setRealTime, msecPerGM)
+    if setRealTime == nil then
+        setRealTime = true
+    end
+    if msecPerGM == nil then
+        msecPerGM = 60000
+    end
+    if (h ~= nil) and (m ~= nil) then 
+        hours = tonumber(h)
+        min = tonumber(m)
+    end
+    Citizen.Wait(10)
+    realTime = setRealTime
+    Citizen.Wait(10)
+    SetMillisecondsPerGameMinute((tonumber(msecPerGM)))
 end)
+
+
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        AddToClockTime(hours, min, 0)
-        NetworkOverrideClockTime(hours, min, 0)
+        if realTime == true then 
+            AddToClockTime(hours, min, 0)
+            NetworkOverrideClockTime(hours, min, 0) 
+        end
     end
 end)
+
+
+
+RegisterCommand('setRealTime', function (source, args)
+    print("Set real")
+    TriggerServerEvent('timesync:requestSync')
+end, false)
+
+RegisterCommand('startTimePan', function (source, args)
+    TriggerServerEvent('timesync:setTimePan', true, args)
+end, false)
+
+RegisterCommand('stopTimePan', function (source, args)
+    TriggerServerEvent('timesync:setTimePan', false)
+end, false)
+
+RegisterKeyMapping('stopTimePan', 'Stop Time Pan', 'keyboard', 'N')
 
 --[[
 RegisterCommand('getNetworkTime', function()
