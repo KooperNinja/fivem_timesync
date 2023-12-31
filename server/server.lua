@@ -2,7 +2,7 @@ local smallTimeInterval = 100
 
 local syncedHours
 local syncedMinutes
-local syncDelay = 10000
+local syncedMsPerGameMinute = 60000
 
 local realTime = true
 
@@ -21,10 +21,7 @@ end)
 
 RegisterNetEvent('timesync:requestSync')
 AddEventHandler('timesync:requestSync', function()
-    realTime = true
-    syncedHours = tonumber(os.date("%H"))
-    syncedMinutes = tonumber(os.date("%M"))
-    TriggerClientEvent('timesync:updateTime', -1, syncedHours, syncedMinutes)
+    TriggerClientEvent('timesync:updateTime', -1, syncedHours, syncedMinutes, syncedMsPerGameMinute)
 end)
 
 RegisterNetEvent('timesync:setTimePan')
@@ -34,12 +31,19 @@ AddEventHandler('timesync:setTimePan', function(active, args)
         return
     end
     realTime = false
-    TriggerClientEvent('timesync:updateTime', -1, args[1], args[2], false, args[3])
+    syncedHours = args[1]
+    syncedMinutes = args[2]
+    syncedMsPerGameMinute = args[3]
+
+    TriggerClientEvent('timesync:updateTime', -1, syncedHours, syncedMinutes, false, syncedMsPerGameMinute)
 end)
 
 
 RegisterCommand('setRealTime', function (source, args)
     print("Set real")
+    syncedHours = tonumber(os.date("%H"))
+    syncedMinutes = tonumber(os.date("%M"))
+    syncedMsPerGameMinute = 60000
     TriggerEvent('timesync:requestSync')
 end, true)
 

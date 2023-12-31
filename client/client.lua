@@ -30,7 +30,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if realTime == true then 
+        if (hours ~= nil and min ~= nil) then
             AddToClockTime(hours, min, 0)
             NetworkOverrideClockTime(hours, min, 0) 
         end
